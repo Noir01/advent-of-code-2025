@@ -18,6 +18,21 @@ const day = dayNumber.padStart(2, "0");
 const partNumber = partArgRaw.toLowerCase().replace(/^part/, "");
 const part = partNumber;
 
+// Solutions that require Node instead of Bun
+const nodeOnlySolutions: Record<string, string> = {
+    "10-2": "Uses z3-solver which requires Node 20+ (Bun WASM bug)",
+};
+
+const key = `${day}-${part}`;
+if (nodeOnlySolutions[key]) {
+    console.error(`\x1b[33m⚠️  Day ${day} Part ${part} cannot run with Bun.\x1b[0m`);
+    console.error(`   Reason: ${nodeOnlySolutions[key]}`);
+    console.error("");
+    console.error("   Run instead with:");
+    console.error(`   \x1b[36mnvm use 20 && npx tsx src/day${day}/part${part}.ts\x1b[0m`);
+    process.exit(1);
+}
+
 const modulePath = `./day${day}/part${part}.ts`;
 
 async function main() {

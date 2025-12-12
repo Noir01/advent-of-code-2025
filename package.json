@@ -12,9 +12,13 @@
     },
     "scripts": {
         "aoc": "bun src/run.ts",
+        "aoc:node": "npx tsx src/run.ts",
         "lint": "biome check . --write --unsafe",
         "format": "biome format . --write",
         "check-types": "tsc --noEmit",
         "check": "bun run format && bun run lint && bun run check-types"
+    },
+    "dependencies": {
+        "z3-solver": "^4.15.4"
     }
 }
