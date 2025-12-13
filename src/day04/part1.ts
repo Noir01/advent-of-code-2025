@@ -142,5 +142,5 @@ export async function main() {
     if (diagram[m - 1]![0] === "@") result++;
     if (diagram[m - 1]![n - 1] === "@") result++;
 
-    console.log(result);
+    return result;
 }

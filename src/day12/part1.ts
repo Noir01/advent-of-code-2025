@@ -38,5 +38,5 @@ export async function main() {
         return trivial;
     }).length;
 
-    console.log(result);
+    return result;
 }

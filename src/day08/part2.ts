@@ -83,5 +83,5 @@ export async function main() {
 
     const result = lastTwoJunctionsConnectedX[0]! * lastTwoJunctionsConnectedX[1]!;
 
-    console.log(result);
+    return result;
 }

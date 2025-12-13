@@ -61,5 +61,5 @@ export async function main() {
         result += minOperations;
     }
 
-    console.log(result);
+    return result;
 }

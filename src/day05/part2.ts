@@ -28,5 +28,5 @@ export async function main() {
     for (const ingredientRange of ingredientRanges) {
         freshIngredients += ingredientRange[1]! - ingredientRange[0]! + 1;
     }
-    console.log(freshIngredients);
+    return freshIngredients;
 }

@@ -163,5 +163,5 @@ export async function main() {
             diagram[m - 1]![n - 1]! = ".";
         }
     }
-    console.log(result);
+    return result;
 }

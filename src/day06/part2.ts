@@ -43,5 +43,5 @@ export async function main() {
         j = i;
     }
 
-    console.log(result);
+    return result;
 }

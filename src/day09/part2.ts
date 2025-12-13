@@ -45,5 +45,5 @@ export async function main() {
         }
     }
 
-    console.log(maxArea);
+    return maxArea;
 }

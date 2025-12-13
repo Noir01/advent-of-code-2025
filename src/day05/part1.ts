@@ -19,8 +19,6 @@ function findClosestLeft(arr: number[], target: number): number {
 export async function main() {
     const rawInput = (await Bun.file("inputs/day05.txt").text()).trimEnd().split("\n");
 
-    // console.log(rawInput);
-
     let split = 0;
     for (let i = 0; i < rawInput.length; i++) {
         if (rawInput[i] === "") {
@@ -62,5 +60,5 @@ export async function main() {
         freshIngredients++;
     }
 
-    console.log(freshIngredients);
+    return freshIngredients;
 }

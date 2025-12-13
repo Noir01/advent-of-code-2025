@@ -76,5 +76,5 @@ export async function main() {
             return acc * size;
         }, 1);
 
-    console.log(result);
+    return result;
 }

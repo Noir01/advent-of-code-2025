@@ -26,5 +26,5 @@ export async function main() {
         adjacencyList[node!] = neighbors!.split(" ").map((x) => x.trim());
     }
 
-    console.log(countPaths("you", adjacencyList));
+    return countPaths("you", adjacencyList);
 }

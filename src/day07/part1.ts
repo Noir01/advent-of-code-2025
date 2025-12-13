@@ -38,5 +38,5 @@ export async function main() {
         }
     }
 
-    console.log(result);
+    return result;
 }

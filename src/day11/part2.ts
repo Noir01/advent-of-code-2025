@@ -7,7 +7,6 @@ function countPaths(
     if (node === target) return 1;
     if (node in memo) return memo[node]!;
 
-    // Safety check: if node is a dead end
     if (!(node in adjacencyList)) return 0;
 
     let total = 0;
@@ -40,5 +39,5 @@ export async function main() {
     const leg3_B = countPaths("dac", "out", adjacencyList);
     const totalOrderB = leg1_B * leg2_B * leg3_B;
 
-    console.log(totalOrderA + totalOrderB);
+    return totalOrderA + totalOrderB;
 }

@@ -40,5 +40,5 @@ export async function main() {
     }
 
     const result = beamCounts[beamCounts.length - 1]!.reduce((a, b) => a + b, 0);
-    console.log(result);
+    return result;
 }
