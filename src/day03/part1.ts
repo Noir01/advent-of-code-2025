@@ -4,24 +4,43 @@ export async function main() {
     let result = 0;
 
     for (const bank of banks) {
-        const toDrop = bank.length - 2;
-        const stack = [];
-        let dropped = 0;
+        const batteries: number[] = new Array(2);
+        const end = bank.length - 2;
 
-        for (const ch of bank) {
-            while (dropped < toDrop && stack.length > 0 && stack[stack.length - 1]! < ch) {
-                stack.pop();
-                dropped++;
+        // initialize batteries with rightmost N digits
+        for (let i = 0; i < 2; i++) {
+            batteries[i] = bank.charCodeAt(end + i);
+        }
+
+        // process  digits right-to-left
+        for (let i = end - 1; i >= 0; i--) {
+            let next = bank.charCodeAt(i);
+            let enable = true; // signal
+
+            for (let j = 0; j < 2; j++) {
+                if (!enable) {
+                    // no swap
+                    break;
+                }
+
+                const shouldSwap = next >= batteries[j]!;
+
+                if (shouldSwap) {
+                    const displaced = batteries[j];
+                    batteries[j] = next;
+                    next = displaced!;
+                    enable = true;
+                } else {
+                    enable = false;
+                }
             }
-            stack.push(ch);
         }
 
-        while (dropped < toDrop) {
-            stack.pop();
-            dropped++;
+        let joltage = 0;
+        for (const b of batteries) {
+            joltage = 10 * joltage + (b - 48);
         }
-
-        result += parseInt(stack.join(""), 10);
+        result += joltage;
     }
 
     return result;
