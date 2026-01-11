@@ -1,46 +1,48 @@
 export async function main() {
     const lines = (await Bun.file("inputs/day06.txt").text()).trimEnd().split("\n");
-
-    const n = lines[0]!.length;
-
-    let i = 0;
-    let j = 0;
+    const width = lines[0]!.length;
+    const bottom = lines.length - 1;
 
     let result = 0;
+    let right = width;
 
-    for (; i <= n; i++) {
-        if (i < n && !lines.map((lines) => lines[i]).every((char) => char === " ")) {
+    for (let i = width - 1; i >= -1; i--) {
+        let isDelimiter = i === -1;
+        if (!isDelimiter) {
+            isDelimiter = true;
+            for (let y = 0; y <= bottom; y++) {
+                if (lines[y]![i] !== " ") {
+                    isDelimiter = false;
+                    break;
+                }
+            }
+        }
+
+        if (!isDelimiter) continue;
+
+        const left = i + 1;
+        if (left >= right) {
+            right = i;
             continue;
         }
 
-        const rawEquation = lines.map((lines) => lines!.slice(j, i));
+        const op = lines[bottom]!.slice(left, right).includes("+") ? "+" : "*";
 
-        const operator = rawEquation[4]!.trim();
-        const numbers: number[] = [];
-
-        for (let k = rawEquation[0]!.length - 1; k >= 0; k--) {
-            numbers.push(
-                parseInt(
-                    rawEquation
-                        .slice(0, 4)
-                        .map((rawNumber) => rawNumber.slice(k, k + 1))
-                        .join(""),
-                    10,
-                ),
-            );
+        // parse each column as a vertical number
+        let blockResult = op === "+" ? 0 : 1;
+        for (let x = left; x < right; x++) {
+            let colStr = "";
+            for (let y = 0; y < bottom; y++) {
+                colStr += lines[y]![x];
+            }
+            const num = parseInt(colStr, 10); // parseInt stops at first non-digit
+            if (!Number.isNaN(num)) {
+                blockResult = op === "+" ? blockResult + num : blockResult * num;
+            }
         }
 
-        if (operator === "+") {
-            result += numbers
-                .filter((num) => !Number.isNaN(num))
-                .reduce((acc, curr) => acc + curr, 0);
-        } else if (operator === "*") {
-            result += numbers
-                .filter((num) => !Number.isNaN(num))
-                .reduce((acc, curr) => acc * curr, 1);
-        }
-
-        j = i;
+        result += blockResult;
+        right = i;
     }
 
     return result;
